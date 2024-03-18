@@ -66,8 +66,113 @@ export const dummySafeData = [
 ]
 
 
+
+export const dummyCommunityData = [
+    {
+
+        title: "Twezimbe",
+        description: "Hello,there,here is a simple description of our community and how you can be part of the drive",
+        target: 2000000000000000000,
+        currentAmount: 0,
+        isActive: true,
+        members: []
+
+
+    },
+    {
+
+        title: "Crypto Bros",
+        description: "Hello,there,here is a simple description of our community and how you can be part of the drive",
+        target: 2000000000000000000,
+        currentAmount: 0,
+        isActive: true,
+        members: []
+
+
+
+    },
+    {
+
+        title: "Future Dons",
+        description: "Hello,there,here is a simple description of our community and how you can be part of the drive",
+        target: 100000000000000000000,
+        currentAmount: 0,
+        isActive: true,
+        members: []
+
+
+    },
+    {
+
+        title: "Poverty Haters",
+        description: "Hello,there,here is a simple description of our community and how you can be part of the drive",
+        target: 2000000000000000000,
+        currentAmount: 0,
+        isActive: true,
+        members: ["dd","MOMI"]
+
+
+
+    },
+    {
+
+        title: "Twezimbe",
+        description: "Hello,there,here is a simple description of our community and how you can be part of the drive",
+        target: 2000000000000000000,
+        currentAmount: 0,
+        isActive: true,
+        members: []
+
+
+    },
+    {
+
+        title: "Crypto Bros",
+        description: "Hello,there,here is a simple description of our community and how you can be part of the drive",
+        target: 2000000000000000000,
+        currentAmount: 0,
+        isActive: true,
+        members: []
+
+
+
+    },
+    {
+
+        title: "Future Dons",
+        description: "Hello,there,here is a simple description of our community and how you can be part of the drive",
+        target: 100000000000000000000,
+        currentAmount: 0,
+        isActive: true,
+        members: []
+
+
+    },
+    {
+
+        title: "Poverty Haters",
+        description: "Hello,there,here is a simple description of our community and how you can be part of the drive",
+        target: 2000000000000000000,
+        currentAmount: 0,
+        isActive: true,
+        members: ["yu","gy"]
+
+
+
+    }
+
+]
+
+
+
+
+
+
+
+
+
 export function getFullDateFromSeconds(unixNano) {
     const unixMilli = Math.floor(unixNano * 1000)
     const date = new Date(unixMilli)
     return date.toLocaleString()
-  }
+}
