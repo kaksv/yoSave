@@ -25,19 +25,25 @@
 				"type": "address"
 			},
 			{
-				"indexed": true,
+				"indexed": false,
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
 			},
 			{
-				"indexed": true,
+				"indexed": false,
 				"internalType": "uint256",
-				"name": "interval",
+				"name": "communityId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "depositAt",
 				"type": "uint256"
 			}
 		],
-		"name": "CampaignCreated",
+		"name": "DepositToComGoal",
 		"type": "event"
 	},
 	{
@@ -50,13 +56,25 @@
 				"type": "address"
 			},
 			{
-				"indexed": true,
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "goalId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "depositedAt",
+				"type": "uint256"
 			}
 		],
-		"name": "CampaignStopped",
+		"name": "DepositToGoal",
 		"type": "event"
 	},
 	{
@@ -117,12 +135,6 @@
 				"internalType": "uint256",
 				"name": "targetAmount",
 				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "goalDescription",
-				"type": "string"
 			}
 		],
 		"name": "GoalSavingSet",
@@ -138,15 +150,71 @@
 				"type": "address"
 			},
 			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "createdAt",
+				"type": "uint256"
+			}
+		],
+		"name": "NewComCampaign",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "member",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "communityId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "requestAt",
+				"type": "uint256"
+			}
+		],
+		"name": "NewMemberRequest",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
 				"indexed": true,
 				"internalType": "uint256",
-				"name": "amount",
+				"name": "safeId",
 				"type": "uint256"
 			},
 			{
 				"indexed": true,
 				"internalType": "uint256",
-				"name": "releaseTime",
+				"name": "createdAt",
 				"type": "uint256"
 			}
 		],
@@ -165,7 +233,69 @@
 			{
 				"indexed": true,
 				"internalType": "uint256",
+				"name": "safeId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "lockedAt",
+				"type": "uint256"
+			}
+		],
+		"name": "SafeLocked",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "safeId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "unlockedAt",
+				"type": "uint256"
+			}
+		],
+		"name": "SafeUnlocked",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "safed",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
 				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "withdrawTime",
 				"type": "uint256"
 			}
 		],
@@ -176,54 +306,28 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_interval",
+				"name": "_id",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
 			}
 		],
-		"name": "autoTransferFunds",
+		"name": "addMemberToCommunity",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "campaigns",
+		"inputs": [],
+		"name": "communityCampaignIndex",
 		"outputs": [
 			{
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
 				"internalType": "uint256",
-				"name": "amount",
+				"name": "",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "interval",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "lastDeductedTime",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "active",
-				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -233,16 +337,57 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_amount",
+				"name": "commId",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_interval",
+				"name": "_amount",
 				"type": "uint256"
 			}
 		],
-		"name": "createCampaign",
+		"name": "contributeToCommunityFund",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_desc",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_targetAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "createNewCommunitySavingCampaign",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_targetAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "createNewSavingGoal",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -251,12 +396,12 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_releaseTime",
+				"name": "_amount",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "_amount",
+				"name": "_duration",
 				"type": "uint256"
 			}
 		],
@@ -269,50 +414,168 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_safeIndex",
+				"name": "_goalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
 				"type": "uint256"
 			}
 		],
-		"name": "forceWithdraw",
+		"name": "depositTowardsGoal",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_commId",
+				"type": "uint256"
+			}
+		],
+		"name": "distributeContributions",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_safeId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
+		],
+		"name": "forceWithdrawFromSafe",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_commId",
+				"type": "uint256"
+			}
+		],
+		"name": "getAllCommunityRequests",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
-		"name": "getMyCampaigns",
+		"name": "getAllGoalSavings",
 		"outputs": [
 			{
 				"components": [
 					{
-						"internalType": "address",
-						"name": "user",
-						"type": "address"
+						"internalType": "string",
+						"name": "goalTitle",
+						"type": "string"
 					},
 					{
 						"internalType": "uint256",
-						"name": "amount",
+						"name": "targetAmount",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
-						"name": "interval",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "lastDeductedTime",
+						"name": "currentAmount",
 						"type": "uint256"
 					},
 					{
 						"internalType": "bool",
-						"name": "active",
+						"name": "isActive",
 						"type": "bool"
 					}
 				],
-				"internalType": "struct CeloVest.Campaign[]",
+				"internalType": "struct CeloVest.GoalSaving[]",
 				"name": "",
 				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_commId",
+				"type": "uint256"
+			}
+		],
+		"name": "getCommDetails",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			},
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_commId",
+				"type": "uint256"
+			}
+		],
+		"name": "getIndivTokenHoldings",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -341,7 +604,7 @@
 					},
 					{
 						"internalType": "bool",
-						"name": "withdrawn",
+						"name": "isLocked",
 						"type": "bool"
 					}
 				],
@@ -351,6 +614,156 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_safeId",
+				"type": "uint256"
+			}
+		],
+		"name": "getSafeDetails",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "releaseTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "isLocked",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct CeloVest.SafeData",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getTotalCommunityProjects",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "goalSavings",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "goalTitle",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "targetAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "currentAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "isActive",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "groupSavingCampaigns",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "goalTitle",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "admin",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "targetAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "currentAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "isActive",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "requestToJoinCommunity",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -398,7 +811,7 @@
 			},
 			{
 				"internalType": "bool",
-				"name": "withdrawn",
+				"name": "isLocked",
 				"type": "bool"
 			}
 		],
@@ -409,11 +822,29 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_campaignIndex",
+				"name": "_safeId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
 				"type": "uint256"
 			}
 		],
-		"name": "stopCampaign",
+		"name": "topUpSafe",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_safeId",
+				"type": "uint256"
+			}
+		],
+		"name": "unlockSafe",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -422,24 +853,34 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_safeIndex",
+				"name": "_goalId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
 				"type": "uint256"
 			}
 		],
-		"name": "withdraw",
+		"name": "withdrawFromGoalCampaign",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_campaignIndex",
+				"name": "_safeId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_amount",
 				"type": "uint256"
 			}
 		],
-		"name": "withdrawFromCampaign",
+		"name": "withdrawFromSafe",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

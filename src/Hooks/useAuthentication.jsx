@@ -15,7 +15,7 @@ const useAuthentication = () => {
     const ERC20_DECIMALS = 18
     const navigate = useNavigate()
 
-    const CeloVestContractAddress = "0x08Ab3955A2C43958cd4F4E01842Fd0291C485425"
+    const CeloVestContractAddress = "0xF654Bfb9b6cE4d778BC7663560B31B8089cDc429"
     const cUSDContractAddress = "0x874069fa1eb16d44d622f2e0ca25eea172369bc1"
 
     let kit
