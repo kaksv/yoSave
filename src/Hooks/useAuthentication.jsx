@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import Web3 from 'web3'
 import { newKitFromWeb3 } from '@celo/contractkit'
 import BigNumber from "bignumber.js"
@@ -7,7 +7,8 @@ import CUSDAbi from "../contracts/erc20.abi.json"
 import CeloVestAbi from "../contracts/celovest.abi.json"
 import { newKit } from '@celo/contractkit/lib/mini-kit'
 import { useNavigate } from 'react-router-dom'
-import { useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { ClipLoader } from 'react-spinners'
 
 
 const useAuthentication = () => {
@@ -15,62 +16,205 @@ const useAuthentication = () => {
     const ERC20_DECIMALS = 18
     const navigate = useNavigate()
 
-    const CeloVestContractAddress = "0xF654Bfb9b6cE4d778BC7663560B31B8089cDc429"
+    const CeloVestContractAddress = "0xD62EB927d162cb9680A8948fd733cCc4D6bC0fF2"
     const cUSDContractAddress = "0x874069fa1eb16d44d622f2e0ca25eea172369bc1"
-
-    let kit
-    let contract
-    let accounts
-    let donations
-    let patients = []
-    let projects = []
-
 
     //connect to the wallet
     const connectCeloWallet = async function () {
         if (window.celo) {
             console.log("windows object :", window.celo)
             try {
+                setButtonLoading(true)
 
                 await window.celo.enable()
                 const web3 = new Web3(window.celo)
-                kit = newKitFromWeb3(web3)
+                var kit = newKitFromWeb3(web3)
 
-                accounts = await kit.web3.eth.getAccounts()
+                const accounts = await kit.web3.eth.getAccounts()
                 kit.defaultAccount = accounts[0]
 
-                contract = new kit.web3.eth.Contract(CeloVestAbi, CeloVestContractAddress)
+                const celoVestContract = new kit.web3.eth.Contract(CeloVestAbi, CeloVestContractAddress)
                 const cUSDContract = new kit.web3.eth.Contract(CUSDAbi, cUSDContractAddress)
-                const balance = await cUSDContract.methods.balanceOf(accounts[0]).call()
+                console.log("celovest contract :", celoVestContract)
+                //get the total number of community projects
+                const [balance, totalComm, mySafes] = await Promise.all([
+                    await cUSDContract.methods.balanceOf(accounts[0]).call(),
+                    await celoVestContract.methods.getTotalCommunityProjects()
+                        .call(),
+                    await celoVestContract.methods
+                        .getMySafes()
+                        .call()
+                ])
 
-                
-                const mySafes = await contract.methods
-                    .getMySafes()
-                    .call()
 
-                // const myCampaigns = await contract.methods
-                //     .getMyCampaigns()
-                //     .call()
-                console.log("balance :", balance);
-                // queryClient.setQueryData(['userCampaigns'], myCampaigns)
+                //for each of the total comm, get its details
+                var details = []
+                for (let i = 0; i < totalComm; i++) {
+                    const results = await celoVestContract.methods.getCommDetails(i)
+                        .call()
+                        console.log("fres sh :",results)
+                    details.push({
+                        title: results[0],
+                        description: results[1],
+                        target: results[2],
+                        currentAmount: results[3],
+                        isActive: results[4],
+                        members: results[5],
+                        communityAdmin:results[6],
+                        newRequests:results[7]
+                    })
+                }
+                console.log("community details :", details)
+
+                //get all the safes for the use
+                queryClient.setQueryData(['allCommunityDetails'], details)
+
+                queryClient.setQueryData(['celoVestContract'], celoVestContract)
+
+                queryClient.setQueryData(['cUSDContract'], cUSDContract)
+                queryClient.setQueryData(['accountAddress'], accounts[0])
 
                 queryClient.setQueryData(['userBalance'], (Number(balance) / 1e18))
                 queryClient.setQueryData(['accountAddress'], accounts[0])
                 queryClient.setQueryData(['mySafes'], mySafes)
+                setButtonLoading(false)
                 navigate('dashboard')
 
-                console.log("my safes here :", test, accounts);
-
             } catch (error) {
-                // notification(`⚠️ ${error}.`)
+                console.log("error in ggg :", error)
             }
         } else {
             //   notification("⚠️ Please install the CeloExtensionWallet.")
         }
     }
 
+    const { data: cUSDContract } = useQuery({
+        queryKey: ['cUSDContract'],
+    });
 
-    return { connectCeloWallet }
+    const { data: celoVestContract } = useQuery({
+        queryKey: ['celoVestContract'],
+    });
+
+    const { data: accountAddress } = useQuery({
+        queryKey: ['accountAddress'],
+    });
+
+
+    const compBot = useQuery({
+        queryKey: ['userBalance'],
+        queryFn: () => loadUserBalance(),
+    });
+
+    const comm = useQuery({
+        queryKey: ['allCommunityDetails'],
+        queryFn: () => loadCommunityData(),
+    });
+
+    const safes = useQuery({
+        queryKey: ['mySafes'],
+        queryFn: () => loadMySafes(),
+    });
+
+
+
+    const loadMySafes = async () => {
+        if (!celoVestContract || !accountAddress) return
+        try {
+            return await celoVestContract.methods
+            .getMySafes()
+            .call()
+
+
+        } catch (error) {
+            console.log("error in loading the user'sa safes :", error)
+        }
+    }
+
+
+    const loadCommunityData = async () => {
+
+        if (!celoVestContract) return
+        try {
+            const totalComm = await celoVestContract.methods.getTotalCommunityProjects()
+                .call()
+
+            var details = []
+            for (let i = 0; i < totalComm; i++) {
+                const results = await celoVestContract.methods.getCommDetails(i)
+                    .call()
+                details.push({
+                    title: results[0],
+                    description: results[1],
+                    target: results[2],
+                    currentAmount: results[3],
+                    isActive: results[4],
+                    members: results[5],
+                    communityAdmin:results[6],
+                    newRequests:results[7]
+                })
+            }
+            return details
+
+        } catch (error) {
+            console.log("errorn loading community data :", error)
+        }
+    }
+
+
+
+    const loadUserBalance = async () => {
+        try {
+            if (!cUSDContract || !accountAddress) return
+            const dd= await cUSDContract.methods.balanceOf(accountAddress).call()
+            return dd/1e18
+        } catch (error) {
+            console.log("erorr in fetching user balance")
+        }
+    }
+
+
+    async function invalidateAccountBalance() {
+        await queryClient.invalidateQueries(['userBalance']);
+    }
+
+    async function invalidateCommunityData() {
+        await queryClient.invalidateQueries(['allCommunityDetails']);
+    }
+
+
+    async function invalidateMySafes() {
+        await queryClient.invalidateQueries(['mySafes']);
+    }
+
+const [buttonLoading,setButtonLoading] = useState(false)
+    
+    const LoginButton = () => {
+        return (
+            <>
+                {buttonLoading ? (
+                    <ClipLoader color="lightblue" />
+                ) : (
+                    <button
+                        className="border p-1 shadow-md shadow-black rounded-md "
+                        onClick={connectCeloWallet}
+                    >
+                        Connect Wallet
+                    </button>
+                )}
+            </>
+        );
+    };
+
+
+
+    return { 
+        connectCeloWallet, 
+        invalidateAccountBalance,
+         invalidateCommunityData,
+        invalidateMySafes ,
+        LoginButton
+    }
 }
 
 export default useAuthentication

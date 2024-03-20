@@ -82,6 +82,7 @@ export const dummyCommunityData = [
     {
 
         title: "Crypto Bros",
+    
         description: "Hello,there,here is a simple description of our community and how you can be part of the drive",
         target: 2000000000000000000,
         currentAmount: 0,
@@ -107,7 +108,7 @@ export const dummyCommunityData = [
         title: "Poverty Haters",
         description: "Hello,there,here is a simple description of our community and how you can be part of the drive",
         target: 2000000000000000000,
-        currentAmount: 0,
+        currentAmount: 400000000000000000,
         isActive: true,
         members: ["dd","MOMI"]
 
@@ -162,6 +163,29 @@ export const dummyCommunityData = [
     }
 
 ]
+
+export const dummyRequestData = [
+    "0x16e06D21b252FD2Ff9cd5794d7c5A3224e71cDF6",
+    "0x16e06D21b252FD2Ff9cd5794d7c5A3224e71cDF6",
+    "0x16e06D21b252FD2Ff9cd5794d7c5A3224e71cDF6",
+    "0x16e06D21b252FD2Ff9cd5794d7c5A3224e71cDF6"
+
+
+]
+
+
+export function createObjectFromArray(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+        throw new Error('Arrays must be of the same length');
+    }
+
+    const result = {};
+    for (let i = 0; i < arr1.length; i++) {
+        result[arr1[i]] = arr2[i];
+    }
+
+    return result;
+}
 
 
 

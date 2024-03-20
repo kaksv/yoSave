@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const Login = () => {
 
-const {connectCeloWallet,identiconTemplate} = useAuthentication()
+const {connectCeloWallet,LoginButton} = useAuthentication()
 
 const { data: accountAddress } = useQuery({
     queryKey: ['accountAddress'],
@@ -25,10 +25,8 @@ const { data: accountAddress } = useQuery({
                 <span>Saving your way to the future</span>
 
             </div>
-            <button
-            className='border p-2 shadow-sm shadow-black rounded-md mt-8'
-             onClick={connectCeloWallet}>Connect Wallet</button>
-             
+            <LoginButton/>
+            {/* d */}
 
         </div>
     )
