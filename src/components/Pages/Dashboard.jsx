@@ -13,10 +13,10 @@ const Dashboard = () => {
 
     const { data: allCommunityDetails } = useQuery({
         queryKey: ['allCommunityDetails'],
-      });
-console.log("dashboard :",allCommunityDetails)
+    });
+    console.log("dashboard :", allCommunityDetails)
 
-    
+
     return (
         <div
             style={{ minHeight: '90vh' }}
@@ -66,14 +66,14 @@ console.log("dashboard :",allCommunityDetails)
 
                     </button>
                 </div>
-<NewCommunity/>
+                <NewCommunity />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 w-full p-4 ">
                 {
                     allCommunityDetails && allCommunityDetails.length > 0 && allCommunityDetails.map((community, index) => {
                         return (
                             <div key={index} className="h-36 w-48 p-1 gap-1 rounded-lg shadow-md flex flex-col justify-center items-center border">
-                                <h2 className="text-xl hover:cursor-pointer" onClick={()=>navigate(`community/${index}`)}>{community.title}</h2>
+                                <h2 className="text-xl hover:cursor-pointer" onClick={() => navigate(`community/${index}`)}>{community.title}</h2>
                                 <div className='text-white bg-blue-200 p-4 rounded w-full'>
                                     {community.currentAmount / 1e18} of {community.target / 1e18} cUSD
                                 </div>

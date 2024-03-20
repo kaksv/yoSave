@@ -5,10 +5,19 @@ import Sidebar from './Pages/Sidebar'
 const SharedDashboardLayout = () => {
   return (
     <>
+
+
+
       <Suspense fallback={<div>loading ....</div>}>
-       <Sidebar/>
-       <Navbar/>
+      <div className="flex w-full">
+      <div className="flex w-1/6">
+        <Sidebar />
+      </div>
+      <div className="w-5/6">
+        <Navbar/>
         <Outlet />
+      </div>
+    </div>
       </Suspense>
     </>
   )

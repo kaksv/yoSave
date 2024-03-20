@@ -2,13 +2,12 @@
 import React, { useState } from 'react'
 import Web3 from 'web3'
 import { newKitFromWeb3 } from '@celo/contractkit'
-import BigNumber from "bignumber.js"
 import CUSDAbi from "../contracts/erc20.abi.json"
 import CeloVestAbi from "../contracts/celovest.abi.json"
-import { newKit } from '@celo/contractkit/lib/mini-kit'
 import { useNavigate } from 'react-router-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { ClipLoader } from 'react-spinners'
+import { CeloVestContractAddress,cUSDContractAddress } from '../components/Utils/Constants'
 
 
 const useAuthentication = () => {
@@ -16,9 +15,7 @@ const useAuthentication = () => {
     const ERC20_DECIMALS = 18
     const navigate = useNavigate()
 
-    const CeloVestContractAddress = "0xD62EB927d162cb9680A8948fd733cCc4D6bC0fF2"
-    const cUSDContractAddress = "0x874069fa1eb16d44d622f2e0ca25eea172369bc1"
-
+   
     //connect to the wallet
     const connectCeloWallet = async function () {
         if (window.celo) {

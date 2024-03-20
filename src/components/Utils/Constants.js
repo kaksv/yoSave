@@ -1,0 +1,2 @@
+export const CeloVestContractAddress = "0x6807F7bfAe42e14C99c9Ee6a602b2F4517360E23"
+export const cUSDContractAddress = "0x874069fa1eb16d44d622f2e0ca25eea172369bc1"

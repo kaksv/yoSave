@@ -11,17 +11,17 @@ const NewCommunity = () => {
 
     const [isOpen, setIsOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-const {invalidateCommunityData} = useAuthentication()
+    const { invalidateCommunityData } = useAuthentication()
 
     const { mutateAsync: HandleSubmitNewCommunity } = useMutation({
         mutationFn: (data) => handleSubmit(data),
         onSuccess: async () => {
-          await invalidateCommunityData();
-          setIsLoading(false);
+            await invalidateCommunityData();
+            setIsLoading(false);
         },
-      });
-    
-      const { data: celoVestContract } = useQuery({
+    });
+
+    const { data: celoVestContract } = useQuery({
         queryKey: ['celoVestContract'],
     });
 
@@ -32,31 +32,32 @@ const {invalidateCommunityData} = useAuthentication()
 
 
 
-    const handleSubmit = async(data) => {
-    try {
-        setIsLoading(true)
-        if(!celoVestContract || !accountAddress) {
-            console.log("igsnyr")
-            return}
-        //format the amount values
-        const _amount = new BigNumber(data.campaignTarget)
-                    .shiftedBy(18)
-                    .toString()
+    const handleSubmit = async (data) => {
+        try {
+            setIsLoading(true)
+            if (!celoVestContract || !accountAddress) {
+                console.log("igsnyr")
+                return
+            }
+            //format the amount values
+            const _amount = new BigNumber(data.campaignTarget)
+                .shiftedBy(18)
+                .toString()
 
-                    const results = await celoVestContract.methods.createNewCommunitySavingCampaign(
-                        data.campaignTitle,
-                        data.campaignDescription,
-                        _amount
-                    )
-                    .send({ from: accountAddress })
-console.log("new comm results :",results)
-                    return results
-        
-    } catch (error) {
-        console.log("error in ddd :",error)
-        
-    }
-        
+            const results = await celoVestContract.methods.createNewCommunitySavingCampaign(
+                data.campaignTitle,
+                data.campaignDescription,
+                _amount
+            )
+                .send({ from: accountAddress })
+            console.log("new comm results :", results)
+            return results
+
+        } catch (error) {
+            console.log("error in ddd :", error)
+
+        }
+
     }
     //my strategy is that either the coin goes to zero or i make some profits from it. I usually don't sell at a loss because i have already decided to lose that money.
 
