@@ -39,32 +39,12 @@ const Sidebar = () => {
 
         <div className="flex items-center p-2 gap-4 hover:bg-yellow-500">
           <RiFundsLine />
-          <Link to="./fundraise">Communities</Link>
+          <Link to="./communities">Communities</Link>
         </div>
         <div className="flex items-center p-2 gap-4 hover:bg-yellow-500">
           <FaDonate />
           <Link to="./myprojects">Investments</Link>
         </div>
-
-        {/* <div className="flex mt-10">
-          {userAddress && (
-            <button
-              onClick={() => PrisonContract?.whitelistAddress()}
-              className="flex border p-2 rounded-md justify-center items-center"
-            >
-              Join whitelist
-            </button>
-          )}
-        </div> */}
-
-        {/* <div className="mt-8">
-          {userAddress && (
-            <div>
-              <span>{userAddress}</span>
-              <button>Disconnect</button>
-            </div>
-          )}
-        </div> */}
       </div>
     </div>
   )

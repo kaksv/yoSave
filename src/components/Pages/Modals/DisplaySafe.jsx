@@ -9,7 +9,7 @@ import useAuthentication from '../../../Hooks/useAuthentication'
 import { CeloVestContractAddress } from '../../Utils/Constants'
 import BigNumber from 'bignumber.js'
 
-function SafeAddFunds({safeId}) {
+function DisplaySafe({safeId}) {
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 const {invalidateMySafes,invalidateAccountBalance} = useAuthentication()
@@ -90,7 +90,7 @@ const { data: cUSDContract } = useQuery({
         type="submit"
         className=""
       >
-        <IoAddCircle />
+        safe
       </div>
       {isOpen && (
         <div className="fixed z-10 inset-0 overflow-y-auto ">
@@ -163,4 +163,4 @@ const { data: cUSDContract } = useQuery({
   )
 }
 
-export default SafeAddFunds
+export default DisplaySafe

@@ -206,6 +206,12 @@
 				"type": "address"
 			},
 			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
 				"indexed": true,
 				"internalType": "uint256",
 				"name": "safeId",
@@ -418,6 +424,11 @@
 	},
 	{
 		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_nickName",
+				"type": "string"
+			},
 			{
 				"internalType": "uint256",
 				"name": "_amount",
@@ -640,9 +651,9 @@
 			{
 				"components": [
 					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
+						"internalType": "string",
+						"name": "safeName",
+						"type": "string"
 					},
 					{
 						"internalType": "uint256",
@@ -681,9 +692,9 @@
 			{
 				"components": [
 					{
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
+						"internalType": "string",
+						"name": "safeName",
+						"type": "string"
 					},
 					{
 						"internalType": "uint256",
@@ -847,9 +858,9 @@
 		"name": "safes",
 		"outputs": [
 			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
+				"internalType": "string",
+				"name": "safeName",
+				"type": "string"
 			},
 			{
 				"internalType": "uint256",

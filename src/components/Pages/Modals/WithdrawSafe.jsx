@@ -9,7 +9,7 @@ import useAuthentication from '../../../Hooks/useAuthentication'
 import { CeloVestContractAddress } from '../../Utils/Constants'
 import BigNumber from 'bignumber.js'
 
-function SafeAddFunds({safeId}) {
+function WithdrawFunds({safeId}) {
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 const {invalidateMySafes,invalidateAccountBalance} = useAuthentication()
@@ -31,17 +31,15 @@ const { data: cUSDContract } = useQuery({
   const { data: mySafes } = useQuery({
     queryKey: ['mySafes'],
   });
-  const [safeName,setSafe] = useState("")
 
+//   useEffect(()=>{
+//     if(!mySafes) return
 
-  useEffect(()=>{
-    if(!mySafes) return
+//     const results = dummySafeData.filter((safe,index)=>index ===safeId)
+//     console.log("res :",results,mySafes)
+//     setSafe(results)
 
-    const results = dummySafeData.filter((safe,index)=>index ===safeId)
-    console.log("res :",results,mySafes)
-    setSafe(results)
-
-  },[safeId])
+//   },[safeId])
 
 
   const { mutateAsync: HandleTopUpSafe } = useMutation({
@@ -57,6 +55,7 @@ const { data: cUSDContract } = useQuery({
 
 
   async function handleSubmit(data) {
+
     try {
       if(!accountAddress || !celoVestContract) return
 
@@ -66,15 +65,7 @@ const { data: cUSDContract } = useQuery({
       const _amount = new BigNumber(data.topUpAmount)
                 .shiftedBy(18)
                 .toString()
-
-                //approve the contract to deduct the amount
-                const result = await cUSDContract.methods
-                .approve(CeloVestContractAddress, _amount)
-                .send({ from: accountAddress })
-           
-                //call the top up amoubt from the contractt
-
-                const results = await celoVestContract.methods.topUpSafe(safeId,_amount)
+                const results = await celoVestContract.methods.withdrawFromSafe(safeId,_amount)
                 .send({ from: accountAddress })
                 return results
 
@@ -133,11 +124,7 @@ const { data: cUSDContract } = useQuery({
                         value={values.topUpAmount}
                         className="border rounded-md p-2"
                       />
-                      <div>
-                        <span>{safeName[0]?.user}</span>
-                      </div>
-
-                     
+                    
 
                       {isLoading ? (
                         <div className="w-full flex justify-center items-center text-white">
@@ -163,4 +150,4 @@ const { data: cUSDContract } = useQuery({
   )
 }
 
-export default SafeAddFunds
+export default WithdrawFunds

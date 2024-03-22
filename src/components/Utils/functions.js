@@ -188,15 +188,41 @@ export function createObjectFromArray(arr1, arr2) {
 }
 
 
+export const formatSafeData=(results)=>{
+    
+    const safeData=[]
 
+    for (let i = 0; i < results?.length; i++) {
+        safeData.push({
+            safeName: results[i][0],
+            safeAmount: results[i][1],
+            safeDuration: results[i][2],
+            isLocked: results[i][3]
+        })
+    }
 
-
-
-
-
+    return safeData
+}
 
 export function getFullDateFromSeconds(unixNano) {
-    const unixMilli = Math.floor(unixNano * 1000)
+    const unixMilli = Math.floor(unixNano)
     const date = new Date(unixMilli)
     return date.toLocaleString()
 }
+
+export function compareTimeInNanoseconds(unixNanoseconds) {
+    // Get current time in nanoseconds
+    let currentTimeNanoseconds = Date.now();
+    console.log("current time :",unixNanoseconds,currentTimeNanoseconds)
+
+    // Convert Unix nanoseconds to milliseconds
+    let unixMilliseconds = unixNanoseconds ;
+
+    // Compare the times and return a boolean value
+    return currentTimeNanoseconds > unixMilliseconds;
+}
+
+// Example usage
+let givenUnixNanoseconds = 123456789012345; // Replace with your Unix nanoseconds timestamp
+let isCurrentTimeAfterGivenTime = compareTimeInNanoseconds(givenUnixNanoseconds);
+console.log(isCurrentTimeAfterGivenTime);

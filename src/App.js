@@ -7,7 +7,7 @@ import SharedDashboardLayout from './components/SharedDashboard';
 import Safes from "./components/Pages/Safes"
 
 import Community from "./components/Pages/Community"
-
+import MyCommunities from "./components/Pages/Community/MyCommunities"
 const InputComponent = () => {
 
 
@@ -20,6 +20,8 @@ const InputComponent = () => {
           <Route path='dashboard' element={<SharedDashboardLayout />}>
             <Route index element={<Dashboard />} />
             <Route path='safes' element={<Safes />} />
+            <Route path='communities' element={<MyCommunities />} />
+
             <Route path='community/:community_id' element={<Community />} />
 
             

@@ -7,7 +7,8 @@ import CeloVestAbi from "../contracts/celovest.abi.json"
 import { useNavigate } from 'react-router-dom'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { ClipLoader } from 'react-spinners'
-import { CeloVestContractAddress,cUSDContractAddress } from '../components/Utils/Constants'
+import { CeloVestContractAddress, cUSDContractAddress } from '../components/Utils/Constants'
+import { formatSafeData } from '../components/Utils/functions'
 
 
 const useAuthentication = () => {
@@ -15,7 +16,7 @@ const useAuthentication = () => {
     const ERC20_DECIMALS = 18
     const navigate = useNavigate()
 
-   
+
     //connect to the wallet
     const connectCeloWallet = async function () {
         if (window.celo) {
@@ -49,7 +50,7 @@ const useAuthentication = () => {
                 for (let i = 0; i < totalComm; i++) {
                     const results = await celoVestContract.methods.getCommDetails(i)
                         .call()
-                        console.log("fres sh :",results)
+                    console.log("fres sh :", results)
                     details.push({
                         title: results[0],
                         description: results[1],
@@ -57,10 +58,13 @@ const useAuthentication = () => {
                         currentAmount: results[3],
                         isActive: results[4],
                         members: results[5],
-                        communityAdmin:results[6],
-                        newRequests:results[7]
+                        communityAdmin: results[6],
+                        newRequests: results[7]
                     })
                 }
+
+                const safeData = formatSafeData(mySafes)
+                console.log("all user safes :",safeData )
                 console.log("community details :", details)
 
                 //get all the safes for the use
@@ -73,7 +77,7 @@ const useAuthentication = () => {
 
                 queryClient.setQueryData(['userBalance'], (Number(balance) / 1e18))
                 queryClient.setQueryData(['accountAddress'], accounts[0])
-                queryClient.setQueryData(['mySafes'], mySafes)
+                queryClient.setQueryData(['mySafes'], safeData)
                 setButtonLoading(false)
                 navigate('dashboard')
 
@@ -118,9 +122,12 @@ const useAuthentication = () => {
     const loadMySafes = async () => {
         if (!celoVestContract || !accountAddress) return
         try {
-            return await celoVestContract.methods
-            .getMySafes()
-            .call()
+            const results = await celoVestContract.methods
+                .getMySafes()
+                .call()
+              
+
+            return await formatSafeData(results)
 
 
         } catch (error) {
@@ -147,8 +154,8 @@ const useAuthentication = () => {
                     currentAmount: results[3],
                     isActive: results[4],
                     members: results[5],
-                    communityAdmin:results[6],
-                    newRequests:results[7]
+                    communityAdmin: results[6],
+                    newRequests: results[7]
                 })
             }
             return details
@@ -163,8 +170,8 @@ const useAuthentication = () => {
     const loadUserBalance = async () => {
         try {
             if (!cUSDContract || !accountAddress) return
-            const dd= await cUSDContract.methods.balanceOf(accountAddress).call()
-            return dd/1e18
+            const dd = await cUSDContract.methods.balanceOf(accountAddress).call()
+            return dd / 1e18
         } catch (error) {
             console.log("erorr in fetching user balance")
         }
@@ -184,8 +191,8 @@ const useAuthentication = () => {
         await queryClient.invalidateQueries(['mySafes']);
     }
 
-const [buttonLoading,setButtonLoading] = useState(false)
-    
+    const [buttonLoading, setButtonLoading] = useState(false)
+
     const LoginButton = () => {
         return (
             <>
@@ -205,11 +212,11 @@ const [buttonLoading,setButtonLoading] = useState(false)
 
 
 
-    return { 
-        connectCeloWallet, 
+    return {
+        connectCeloWallet,
         invalidateAccountBalance,
-         invalidateCommunityData,
-        invalidateMySafes ,
+        invalidateCommunityData,
+        invalidateMySafes,
         LoginButton
     }
 }

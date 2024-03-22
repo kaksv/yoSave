@@ -8,15 +8,22 @@ import { dummySafeData } from '../../Utils/functions'
 import useAuthentication from '../../../Hooks/useAuthentication'
 import { CeloVestContractAddress } from '../../Utils/Constants'
 import BigNumber from 'bignumber.js'
-
-function SafeAddFunds({safeId}) {
+import moment from "moment"
+import DateTimePicker from 'react-datetime-picker';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+function NewSafe() {
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [datePicker,setDetPicker] = useState(new Date())
+
 const {invalidateMySafes,invalidateAccountBalance} = useAuthentication()
   const { data: celoVestContract } = useQuery({
     queryKey: ['celoVestContract'],
 });
 
+console.log("selected date :",(moment(datePicker).valueOf() * 1e6));
 
 const { data: accountAddress } = useQuery({
     queryKey: ['accountAddress'],
@@ -34,17 +41,17 @@ const { data: cUSDContract } = useQuery({
   const [safeName,setSafe] = useState("")
 
 
-  useEffect(()=>{
-    if(!mySafes) return
+//   useEffect(()=>{
+//     if(!mySafes) return
 
-    const results = dummySafeData.filter((safe,index)=>index ===safeId)
-    console.log("res :",results,mySafes)
-    setSafe(results)
+//     const results = dummySafeData.filter((safe,index)=>index ===safeId)
+//     console.log("res :",results,mySafes)
+//     setSafe(results)
 
-  },[safeId])
+//   },[safeId])
 
 
-  const { mutateAsync: HandleTopUpSafe } = useMutation({
+  const { mutateAsync: HandleCreateNewSafe } = useMutation({
     mutationFn: (data) => handleSubmit(data),
     onSuccess: async () => {
         await invalidateMySafes();
@@ -62,8 +69,12 @@ const { data: cUSDContract } = useQuery({
 
       setIsLoading(true)
 
+      console.log("cccc :",moment(datePicker).valueOf())
+      const formatedDate =moment(datePicker).valueOf()
+      // .shiftedBy(13)
+      // .toString()
       //format the topup amount
-      const _amount = new BigNumber(data.topUpAmount)
+      const _amount = new BigNumber(data.amountToSave)
                 .shiftedBy(18)
                 .toString()
 
@@ -74,12 +85,12 @@ const { data: cUSDContract } = useQuery({
            
                 //call the top up amoubt from the contractt
 
-                const results = await celoVestContract.methods.topUpSafe(safeId,_amount)
+                const results = await celoVestContract.methods.createSafe(data.safeName,_amount,formatedDate)
                 .send({ from: accountAddress })
                 return results
 
     } catch (error) {
-      console.log('error in topping up safe :', error)
+      console.log('error creating new safe :', error)
     }
     setIsLoading(false)
   }
@@ -90,7 +101,7 @@ const { data: cUSDContract } = useQuery({
         type="submit"
         className=""
       >
-        <IoAddCircle />
+        New Safe
       </div>
       {isOpen && (
         <div className="fixed z-10 inset-0 overflow-y-auto ">
@@ -111,32 +122,41 @@ const { data: cUSDContract } = useQuery({
                 />
               </div>
               <div className="flex flex-col gap-4 w-full justify-center items-center py-4">
-                <h2 className="text-white">Add Funds to Safe</h2>
+                <h2 className="text-white">New Safe</h2>
 
                 <Formik
                   initialValues={{
-                    topUpAmount: 0,
+                    safeName:"",
+                    amountToSave:0,
                   }}
                   onSubmit={(values) => {
-                    HandleTopUpSafe(values)
+                    HandleCreateNewSafe(values)
                   }}
                 >
                   {({ values, handleChange, errors, touched }) => (
                     <Form className="flex flex-col gap-1">
                      
                       <Field
-                        id="topUpAmount"
-                        name="topUpAmount"
-                        type="number"
-                        placeholder="enter topup amount"
+                        id="safeName"
+                        name="safeName"
+                        type="text"
+                        placeholder="enter safe name"
                         onChange={handleChange}
                         value={values.topUpAmount}
                         className="border rounded-md p-2"
                       />
-                      <div>
-                        <span>{safeName[0]?.user}</span>
-                      </div>
-
+                      
+                      <Field
+                        id="amountToSave"
+                        name="amountToSave"
+                        type="number"
+                        placeholder="enter amount to save"
+                        onChange={handleChange}
+                        value={values.topUpAmount}
+                        className="border rounded-md p-2"
+                      />
+                      
+                      <DateTimePicker className="text-white" onChange={setDetPicker} value={datePicker} />
                      
 
                       {isLoading ? (
@@ -163,4 +183,4 @@ const { data: cUSDContract } = useQuery({
   )
 }
 
-export default SafeAddFunds
+export default NewSafe

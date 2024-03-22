@@ -25,6 +25,9 @@ const NewCommunity = () => {
         queryKey: ['celoVestContract'],
     });
 
+    const { data: cUSDContract } = useQuery({
+        queryKey: ['cUSDContract'],
+    });
 
     const { data: accountAddress } = useQuery({
         queryKey: ['accountAddress'],
