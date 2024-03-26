@@ -44,7 +44,7 @@ const useAuthentication = () => {
                         .call()
                 ])
 
-
+const testing = []
                 //for each of the total comm, get its details
                 var details = []
                 for (let i = 0; i < totalComm; i++) {
