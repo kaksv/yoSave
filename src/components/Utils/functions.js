@@ -194,10 +194,10 @@ export const formatSafeData=(results)=>{
 
     for (let i = 0; i < results?.length; i++) {
         safeData.push({
-            safeName: results[i][0],
-            safeAmount: results[i][1],
-            safeDuration: results[i][2],
-            isLocked: results[i][3]
+            safeName: results[i].name,
+            safeAmount: results[i].amount,
+            safeDuration: results[i].releaseTime,
+            isLocked: results[i].isLocked
         })
     }
 

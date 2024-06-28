@@ -1,26 +1,15 @@
-import React, { Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
-import Navbar from './Pages/Navbar'
-import Sidebar from './Pages/Sidebar'
+import React, { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import Footer from "./Pages/Footer";
 const SharedDashboardLayout = () => {
   return (
     <>
-
-
-
       <Suspense fallback={<div>loading ....</div>}>
-      <div className="flex w-full">
-      <div className="flex w-1/6">
-        <Sidebar />
-      </div>
-      <div className="w-5/6">
-        <Navbar/>
         <Outlet />
-      </div>
-    </div>
+        <Footer />
       </Suspense>
     </>
-  )
-}
+  );
+};
 
-export default SharedDashboardLayout
+export default SharedDashboardLayout;
