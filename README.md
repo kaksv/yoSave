@@ -1,9 +1,7 @@
 # miSAFE
 
-miSAFE is an innovative community savings app that empowers small business owners and individuals to pool their funds together, enabling them to achieve their financial goals more effectively.
-
 ## PROBLEM
-Starting a business or reaching other financial goals can be a daunting challenge, especially when it comes to raising the necessary capital. miSAFE is an innovative community savings app that provides a solution to this problem.
+Starting a business or reaching other financial goals can be a daunting challenge, especially when it comes to raising the necessary capital. miSAFE is an innovative  savings app that provides a solution to this problem.
 
 miSAFE allows users to save small amounts of money securely towards their individual or shared goals. The app's key features include:
 
@@ -17,4 +15,13 @@ The app facilitates the creation of collaborative savings campaigns, where indiv
 ## Upcoming Features
 - Onramping and offramping to banks and mobile money
 - Interest rate earning
+- Time-locked group saving campaigns
 - Documentation and educational resources
+
+
+A savings app that empowers small business owners and individuals to pool their funds together, enabling them to achieve their financial goals more effectively.
+
+![oo](./src/assets/homepage.png)
+![oo](./src/assets/dashboard.png)
+![oo](./src/assets/groupdashboard.png)
+![oo](./src/assets/safepage.png)
