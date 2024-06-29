@@ -6,7 +6,7 @@ const HomePage = () => {
   const {LoginButton,address} = useAuthentication()
   return (
     <div className="bg-black text-white min-h-screen flex flex-col justify-center items-center">
-        <h1 className="text-6xl ">miSAVE</h1>
+        <h1 className="text-6xl ">miSAFE</h1>
       <div className="max-w-md w-full px-6 py-8 rounded-lg shadow-lg">
         <img src={Img} alt="imig" />
         <p className="text-lg mb-8">
