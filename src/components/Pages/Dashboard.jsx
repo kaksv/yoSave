@@ -198,7 +198,7 @@ const Dashboard = () => {
           {showCommunityModal && (
             <div className="fixed inset-0 bg-black bg-opacity-60 p-2 flex items-center justify-center">
               <div className="bg-[#173F8A] rounded-lg p-6 max-w-md w-full">
-                <h2 className="text-lg font-bold mb-4">New Community Goal</h2>
+                <h2 className="text-lg font-bold mb-4">New Group Goal</h2>
                 <input
                   type="text"
                   name="title"
