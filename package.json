@@ -1,7 +1,6 @@
 {
   "name": "miSAFE",
   "version": "0.1.0",
-  "homepage": "http://sam-the-tutor.github.io/CeloVest",
   "dependencies": {
     "@celo/contractkit": "^7.2.0",
     "@dfinity/agent": "^1.0.1",
