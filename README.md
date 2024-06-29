@@ -15,8 +15,6 @@ The app facilitates the creation of collaborative savings campaigns, where indiv
 
 
 ## Upcoming Features
-- 
 - Onramping and offramping to banks and mobile money
 - Interest rate earning
 - Documentation and educational resources
-- 
