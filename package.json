@@ -35,7 +35,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d run build",
+    "deploy": "gh-pages -b master -d run build",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test"
   },
