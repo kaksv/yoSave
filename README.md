@@ -1,25 +1,27 @@
-# miSAFE
+# yoSave
 
-## PROBLEM
-Starting a business or reaching other financial goals can be a daunting challenge, especially when it comes to raising the necessary capital. miSAFE is an innovative  savings app that provides a solution to this problem.
+## PROBLEM STATEMENT
+Reaching financial goals on an individual basis and collectively as a community can be a daunting challenge, especially when it comes to raising the necessary capital required for succesfully executing the required goal. YoSave is an innovative solution forcused on succesfully tackling this problem.
 
-miSAFE allows users to save small amounts of money securely towards their individual or shared goals. The app's key features include:
+yoSave allows onchain users to save the agreed upon amounts of  cUSD securely on the celo blockchain using the 
+### alfajores tesnetwork.
+The app's key features include:
 
 **Time-Locked Savings Vaults**
-miSAFE's secure savings vaults enable users to lock away funds for a specified duration, helping them resist the temptation to prematurely withdraw the money and stay on track with their savings objectives.
+yoSave's secure savings vaults enable users to lock cUSD funds for a specified duration, providing them the capacity to prevent temptation of using the money way before the exact time it is meant to be used.
 
 **Group Savings Campaigns**
-The app facilitates the creation of collaborative savings campaigns, where individuals can pool their resources together towards a common goal. By working as a community, users can achieve their financial targets more efficiently.
+The platform facilitates the creation of collaborative savings campaigns, where individuals can pool their resources together towards a common goal. By working as a community, users can achieve their financial targets more efficiently, quickly and precisely.
 
 
-## Upcoming Features
-- Onramping and offramping to banks and mobile money
-- Interest rate earning
+## Future Targets
+- Onramping and offramping to and from mobile money
+- Interest rate earning through liquidity provision to borrowing and lending protocols on the celo blockchain.
 - Time-locked group saving campaigns
-- Documentation and educational resources
 
 
-A savings app that empowers small business owners and individuals to pool their funds together, enabling them to achieve their financial goals more effectively.
+
+An Onchain savings platform that empowers individuals and communities to pool their funds together, to achieve their financial goals more effectively and significantly reduce the barrier of access to resources in order to archieve specific goals.
 
 ![oo](./src/assets/homepage.png)
 ![oo](./src/assets/dashboard.png)
