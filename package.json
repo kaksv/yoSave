@@ -1,5 +1,5 @@
 {
-  "name": "miSAFE",
+  "name": "yoSave",
   "version": "0.1.0",
   "dependencies": {
     "@celo/contractkit": "^7.2.0",
