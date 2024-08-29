@@ -3,8 +3,7 @@
 ## PROBLEM STATEMENT
 Reaching financial goals on an individual basis and collectively as a community can be a daunting challenge, especially when it comes to raising the necessary capital required for succesfully executing the required goal. YoSave is an innovative solution forcused on succesfully tackling this problem.
 
-yoSave allows onchain users to save the agreed upon amounts of  cUSD securely on the celo blockchain using the 
-### alfajores tesnetwork.
+yoSave allows onchain users to save the agreed upon amounts of  cUSD securely on the celo blockchain using the alfajores tesnetwork.
 The app's key features include:
 
 **Time-Locked Savings Vaults**
